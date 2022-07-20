@@ -75,10 +75,7 @@ export default class FcBaseComponent {
   }
 
   private async getFcEndpoint(): Promise<string | undefined> {
-    const fcDefault = await core.loadComponent('devsapp/fc-default');
-    const fcEndpoint: string = await fcDefault.get({ args: 'fc-endpoint' });
-    if (!fcEndpoint) { return undefined; }
-    const enableFcEndpoint: any = await fcDefault.get({ args: 'enable-fc-endpoint' });
-    return (enableFcEndpoint === true || enableFcEndpoint === 'true') ? fcEndpoint : undefined;
+    const fcCore = await core.loadComponent('devsapp/fc-core');
+    return await fcCore.getEndpointFromFcDefault();
   }
 }
